@@ -16,16 +16,16 @@ const TaskForm: React.FC = () => {
 
   return (
     <div className={styles.root}>
-      <form onSubmit={handleSubmit(handleCreate)} className={styles.form}>
+      {/* <form onSubmit={handleSubmit(handleCreate)} className={styles.form}>
         <TextField
           id="outlined-basic"
           label="New Task"
           variant="outlined"
-          inputRef={register}
+          innerRef={register}
           name="taskTitle"
           className={styles.text_field}
         />
-      </form>
+      </form> */}
     </div>
   );
 };
