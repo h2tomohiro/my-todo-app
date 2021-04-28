@@ -1,5 +1,5 @@
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import TextField from "@material-ui/core/TextField";
 import {
@@ -33,8 +33,8 @@ const TaskForm: React.FC<PropTypes> = ({ edit }) => {
     const sendData = { ...selectedTask, title: data.taskTitle };
     await editTask(sendData);
     dispatch(handleModalOpen(false));
+    dispatch(fetchTasks());
   };
-
   return (
     <div className={styles.root}>
       <form
