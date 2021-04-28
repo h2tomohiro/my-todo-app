@@ -46,7 +46,7 @@ const TaskItem: React.FC<PropTypes> = ({ task }) => {
       <Modal open={open} onClose={handleClose} className={styles.modal}>
         <div className={styles.modal_content}>
           <div className={styles.modal_title}>Edit</div>
-          <TaskForm />
+          <TaskForm edit />
         </div>
       </Modal>
     </div>
