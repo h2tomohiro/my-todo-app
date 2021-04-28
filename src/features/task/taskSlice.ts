@@ -1,43 +1,59 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
+import firebase from "firebase/app";
 import { RootState } from "../../app/store";
+import { db } from "../../firebase";
 
 interface TaskState {
   idCount: number;
-  tasks: { id: number; title: string; completed: boolean }[];
-  selectedTask: { id: number; title: string; completed: boolean };
+  tasks: { id: string; title: string; completed: boolean }[];
+  selectedTask: { id: string; title: string; completed: boolean };
   isModalOpen: boolean;
 }
 
 const initialState: TaskState = {
   idCount: 1,
-  tasks: [{ id: 1, title: "Task A", completed: false }],
-  selectedTask: { id: 0, title: "", completed: false },
+  tasks: [],
+  selectedTask: { id: "", title: "", completed: false },
   isModalOpen: false,
 };
+
+export const fetchTasks = createAsyncThunk("task/getAllTasks", async () => {
+  const res = await db.collection("tasks").orderBy("dateTime", "desc").get();
+
+  const allTasks = res.docs.map((doc) => ({
+    id: doc.id,
+    title: doc.data().title,
+    completed: doc.data().completed,
+  }));
+
+  const taskNumber = allTasks.length;
+  const passData = { allTasks, taskNumber };
+  return passData;
+});
 
 export const taskSlice = createSlice({
   name: "task",
   initialState,
   reducers: {
     createTask: (state, action: PayloadAction<string>) => {
-      state.idCount++;
-      const newTask = {
-        id: state.idCount,
-        title: action.payload,
-        completed: false,
-      };
-      state.tasks = [newTask, ...state.tasks];
+      // state.idCount++;
+      // const newTask = {
+      //   id: state.idCount,
+      //   title: action.payload,
+      //   completed: false,
+      // };
+      // state.tasks = [newTask, ...state.tasks];
     },
 
     editTask: (state, action) => {
-      const task = state.tasks.find((t) => t.id === action.payload.id);
-      if (task) {
-        task.title = action.payload.title;
-      }
+      // const task = state.tasks.find((t) => t.id === action.payload.id);
+      // if (task) {
+      //   task.title = action.payload.title;
+      // }
     },
 
     deleteTask: (state, action) => {
-      state.tasks = state.tasks.filter((t) => t.id !== action.payload.id);
+      // state.tasks = state.tasks.filter((t) => t.id !== action.payload.id);
     },
 
     selectTask: (state, action) => {
@@ -49,11 +65,17 @@ export const taskSlice = createSlice({
     },
 
     completeTask: (state, action) => {
-      const task = state.tasks.find((t) => t.id === action.payload.id);
-      if (task) {
-        task.completed = !task.completed;
-      }
+      // const task = state.tasks.find((t) => t.id === action.payload.id);
+      // if (task) {
+      //   task.completed = !task.completed;
+      // }
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(fetchTasks.fulfilled, (state, action) => {
+      state.tasks = action.payload.allTasks;
+      state.idCount = action.payload.taskNumber;
+    });
   },
 });
 
