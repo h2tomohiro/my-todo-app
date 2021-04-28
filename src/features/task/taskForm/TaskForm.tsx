@@ -23,9 +23,9 @@ const TaskForm: React.FC = () => {
           id="outlined-basic"
           label="New Task"
           variant="outlined"
-          {...register("value_name")}
-          name="taskTitle"
+          // name="taskTitle"
           className={styles.text_field}
+          {...register("taskTitle")}
         />
       </form>
     </div>
