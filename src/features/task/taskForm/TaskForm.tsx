@@ -23,12 +23,8 @@ const TaskForm: React.FC = () => {
           id="outlined-basic"
           label="New Task"
           variant="outlined"
-<<<<<<< HEAD
           // inputRef={register}
-          name="taskTitle"
-=======
           // name="taskTitle"
->>>>>>> redux-toolkit
           className={styles.text_field}
           {...register("taskTitle")}
         />
