@@ -5,7 +5,7 @@ import Modal from "@material-ui/core/Modal";
 import EventNoteIcon from "@material-ui/icons/EventNote";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
-import { handleModalOpen, selectIsModalOpen } from "../taskSlice";
+import { selectTask, handleModalOpen, selectIsModalOpen } from "../taskSlice";
 import TaskForm from "../taskForm/TaskForm";
 import styles from "./TaskItem.module.scss";
 
@@ -17,6 +17,7 @@ const TaskItem: React.FC<PropTypes> = ({ task }) => {
   const isModalOpen = useSelector(selectIsModalOpen);
   const dispatch = useDispatch();
   const handleOpen = () => {
+    dispatch(selectTask(task));
     dispatch(handleModalOpen(true));
   };
   const handleClose = () => {

@@ -28,18 +28,27 @@ export const taskSlice = createSlice({
       };
       state.tasks = [newTask, ...state.tasks];
     },
+
+    selectTask: (state, action) => {
+      state.selectedTask = action.payload;
+    },
+
     handleModalOpen: (state, action) => {
       state.isModalOpen = action.payload;
     },
   },
 });
 
-export const { createTask, handleModalOpen } = taskSlice.actions;
+export const { createTask, selectTask, handleModalOpen } = taskSlice.actions;
 
-export const selectTask = (state: RootState): TaskState["tasks"] =>
+export const selectTasks = (state: RootState): TaskState["tasks"] =>
   state.task.tasks;
 
 export const selectIsModalOpen = (state: RootState): TaskState["isModalOpen"] =>
   state.task.isModalOpen;
+
+export const selectSelectedTask = (
+  state: RootState
+): TaskState["selectedTask"] => state.task.selectedTask;
 
 export default taskSlice.reducer;
