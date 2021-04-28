@@ -10,7 +10,6 @@ type Inputs = {
 };
 
 const TaskForm: React.FC = () => {
-  console.log();
   const dispatch = useDispatch();
   const { register, handleSubmit, reset } = useForm();
   const handleCreate = (data: Inputs) => {
