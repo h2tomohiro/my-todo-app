@@ -36,6 +36,10 @@ export const taskSlice = createSlice({
       }
     },
 
+    deleteTask: (state, action) => {
+      state.tasks = state.tasks.filter((t) => t.id !== action.payload.id);
+    },
+
     selectTask: (state, action) => {
       state.selectedTask = action.payload;
     },
@@ -43,14 +47,23 @@ export const taskSlice = createSlice({
     handleModalOpen: (state, action) => {
       state.isModalOpen = action.payload;
     },
+
+    completeTask: (state, action) => {
+      const task = state.tasks.find((t) => t.id === action.payload.id);
+      if (task) {
+        task.completed = !task.completed;
+      }
+    },
   },
 });
 
 export const {
   createTask,
   editTask,
+  deleteTask,
   selectTask,
   handleModalOpen,
+  completeTask,
 } = taskSlice.actions;
 
 export const selectTasks = (state: RootState): TaskState["tasks"] =>
