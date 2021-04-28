@@ -4,6 +4,7 @@ import Modal from "@material-ui/core/Modal";
 import EventNoteIcon from "@material-ui/icons/EventNote";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
+import TaskForm from "../taskForm/TaskForm";
 import styles from "./TaskItem.module.scss";
 
 interface PropTypes {
@@ -45,6 +46,7 @@ const TaskItem: React.FC<PropTypes> = ({ task }) => {
       <Modal open={open} onClose={handleClose} className={styles.modal}>
         <div className={styles.modal_content}>
           <div className={styles.modal_title}>Edit</div>
+          <TaskForm />
         </div>
       </Modal>
     </div>
