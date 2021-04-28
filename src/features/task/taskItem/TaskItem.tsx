@@ -1,8 +1,8 @@
 import React from "react";
 import Checkbox from "@material-ui/core/Checkbox";
-import DeleteIcon from "@material-ui/icons/Delete";
-import EditIcon from "@material-ui/icons/Edit";
 import EventNoteIcon from "@material-ui/icons/EventNote";
+import EditIcon from "@material-ui/icons/Edit";
+import DeleteIcon from "@material-ui/icons/Delete";
 import styles from "./TaskItem.module.scss";
 
 interface PropTypes {

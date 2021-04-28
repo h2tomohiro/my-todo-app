@@ -1,6 +1,0 @@
-[
-  { "id": 0, "title": "TaskA", "completed": false },
-  { "id": 1, "title": "TaskB", "completed": false },
-  { "id": 2, "title": "TaskC", "completed": false },
-  { "id": 3, "title": "TaskD", "completed": false }
-]
