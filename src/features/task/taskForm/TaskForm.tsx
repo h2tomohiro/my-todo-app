@@ -10,6 +10,7 @@ type Inputs = {
 };
 
 const TaskForm: React.FC = () => {
+  console.log();
   const dispatch = useDispatch();
   const { register, handleSubmit, reset } = useForm();
   const handleCreate = (data: Inputs) => {
@@ -23,7 +24,7 @@ const TaskForm: React.FC = () => {
           id="outlined-basic"
           label="New Task"
           variant="outlined"
-          // inputRef={register}
+          {...register("value_name")}
           name="taskTitle"
           className={styles.text_field}
         />
