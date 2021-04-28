@@ -31,44 +31,52 @@ export const fetchTasks = createAsyncThunk("task/getAllTasks", async () => {
   return passData;
 });
 
+export const createTask = async (title: string): Promise<void> => {
+  try {
+    const dateTime = firebase.firestore.Timestamp.fromDate(new Date());
+    await db
+      .collection("tasks")
+      .add({ title: title, completed: false, dateTime: dateTime });
+  } catch (err) {
+    console.log("Error writing document: ", err);
+  }
+};
+
+export const editTask = async (submitData: {
+  id: string;
+  title: string;
+  completed: boolean;
+}): Promise<void> => {
+  const { id, title, completed } = submitData;
+  const dateTime = firebase.firestore.Timestamp.fromDate(new Date());
+  try {
+    await db
+      .collection("tasks")
+      .doc(id)
+      .set({ title, completed, dateTime }, { merge: true });
+  } catch (err) {
+    console.log("Error updating document:", err);
+  }
+};
+
+export const deleteTask = async (id: string): Promise<void> => {
+  try {
+    await db.collection("tasks").doc(id).delete();
+  } catch (err) {
+    console.log("Error removing document: ", err);
+  }
+};
+
 export const taskSlice = createSlice({
   name: "task",
   initialState,
   reducers: {
-    createTask: (state, action: PayloadAction<string>) => {
-      // state.idCount++;
-      // const newTask = {
-      //   id: state.idCount,
-      //   title: action.payload,
-      //   completed: false,
-      // };
-      // state.tasks = [newTask, ...state.tasks];
-    },
-
-    editTask: (state, action) => {
-      // const task = state.tasks.find((t) => t.id === action.payload.id);
-      // if (task) {
-      //   task.title = action.payload.title;
-      // }
-    },
-
-    deleteTask: (state, action) => {
-      // state.tasks = state.tasks.filter((t) => t.id !== action.payload.id);
-    },
-
     selectTask: (state, action) => {
       state.selectedTask = action.payload;
     },
 
     handleModalOpen: (state, action) => {
       state.isModalOpen = action.payload;
-    },
-
-    completeTask: (state, action) => {
-      // const task = state.tasks.find((t) => t.id === action.payload.id);
-      // if (task) {
-      //   task.completed = !task.completed;
-      // }
     },
   },
   extraReducers: (builder) => {
@@ -79,14 +87,7 @@ export const taskSlice = createSlice({
   },
 });
 
-export const {
-  createTask,
-  editTask,
-  deleteTask,
-  selectTask,
-  handleModalOpen,
-  completeTask,
-} = taskSlice.actions;
+export const { selectTask, handleModalOpen } = taskSlice.actions;
 
 export const selectTasks = (state: RootState): TaskState["tasks"] =>
   state.task.tasks;

@@ -3,11 +3,13 @@ import { useSelector, useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import TextField from "@material-ui/core/TextField";
 import {
+  fetchTasks,
   createTask,
   editTask,
   handleModalOpen,
   selectSelectedTask,
 } from "../taskSlice";
+import { AppDispatch } from "../../../app/store";
 import styles from "./TaskForm.module.scss";
 
 type Inputs = {
@@ -19,16 +21,17 @@ type PropTypes = {
 };
 
 const TaskForm: React.FC<PropTypes> = ({ edit }) => {
-  const dispatch = useDispatch();
+  const dispatch: AppDispatch = useDispatch();
   const selectedTask = useSelector(selectSelectedTask);
   const { register, handleSubmit, reset } = useForm();
-  const handleCreate = (data: Inputs) => {
-    dispatch(createTask(data.taskTitle));
+  const handleCreate = async (data: Inputs) => {
+    await createTask(data.taskTitle);
     reset();
+    dispatch(fetchTasks());
   };
-  const handleEdit = (data: Inputs) => {
+  const handleEdit = async (data: Inputs) => {
     const sendData = { ...selectedTask, title: data.taskTitle };
-    dispatch(editTask(sendData));
+    await editTask(sendData);
     dispatch(handleModalOpen(false));
   };
 
