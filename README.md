@@ -4,6 +4,7 @@ https://my-todo-app-120c7.web.app/
 - React Redux-toolkit
 - Typescript
 - Firebase
+- Material UI
 ## Library
 - npx create-react-app my-todo-app --template redux-typescript
 - yarn add node-sass
