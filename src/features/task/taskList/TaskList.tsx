@@ -8,7 +8,7 @@ const TaskList: React.FC = () => {
   const { tasks } = useSelector((state: RootState) => state.task);
 
   return (
-    <div className={styles.wrapper}>
+    <div className={styles.root}>
       {tasks.map((task) => (
         <TaskItem key={task.id} task={task} />
       ))}
