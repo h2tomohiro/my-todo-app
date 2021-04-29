@@ -1,6 +1,6 @@
 # my-todo-app
 https://my-todo-app-120c7.web.app/
-## Tech stack
+## Tech stacks
 - React Redux-toolkit
 - Typescript
 - Firebase
