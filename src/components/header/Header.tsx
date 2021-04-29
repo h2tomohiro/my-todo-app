@@ -9,7 +9,9 @@ const Header: React.FC = () => {
     <div className={styles.root}>
       <AppBar position="static" className={styles.app_bar}>
         <Toolbar className={styles.tool_bar}>
-          <Typography variant="h6" className={styles.title}></Typography>
+          <Typography variant="h4" className={styles.title}>
+            Todo App
+          </Typography>
         </Toolbar>
       </AppBar>
     </div>
